@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Константин & Олеся - Свадьба во Владикавказе</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Cormorant+Garamond:wght@300;400;500&family=Montserrat:wght@300;400;500&display=swap">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root {
+            --primary-color: #8D2F23; /* Tuscan red */
+            --secondary-color: #364B44; /* Deep olive */
+            --accent-color: #D4B36A; /* Gold/tan */
+            --light-color: #F7F4EF; /* Cream */
+            --dark-color: #282520; /* Deep brown */
+            --spacing: 2rem;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--dark-color);
+            background-color: var(--light-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header styles */
+        header {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://public.youware.com/users-website-assets/prod/f9343a2b-c4ed-4e80-b2b8-b2b256e434e7/34a68c9967f44ed08e4ebddaeaf9251f') center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .header-content {
+            z-index: 1;
+        }
+        
+        .header-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+            font-weight: 300;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header-date {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-style: italic;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Countdown Timer Styles */
+        .countdown-container {
+            margin-top: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .countdown-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .countdown-item {
+            text-align: center;
+            min-width: 80px;
+        }
+        
+        .countdown-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            display: block;
+            line-height: 1;
+        }
+        
+        .countdown-label {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 0.5rem;
+            opacity: 0.9;
+        }
+        
+        .scroll-down {
+            position: absolute;
+            bottom: 2rem;
+            font-size: 1.2rem;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-20px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: var(--light-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .nav-list {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-link {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark-color);
+        }
+        
+        /* Section styles */
+        section {
+            padding: var(--spacing) 0;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-color);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        /* Couple section */
+        .couple {
+            padding: 4rem 0;
+            background-color: white;
+        }
+        
+        .couple-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+        
+        .person {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+        
+        .person-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1.5rem;
+            border: 3px solid var(--accent-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .person-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+        
+        .person-desc {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            max-width: 300px;
+            margin: 0 auto;
+            font-style: italic;
+        }
+        
+        .and-symbol {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            display: flex;
+            align-items: center;
+            color: var(--accent-color);
+        }
+        
+        /* Event details */
+        .event-details {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 4rem 0;
+        }
+        
+        .event-details .section-title {
+            color: white;
+        }
+        
+        .details-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        
+        .detail-card {
+            flex: 1;
+            min-width: 300px;
+            max-width: 350px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 5px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .detail-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .detail-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+        
+        .detail-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .detail-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+        }
+        
+        .detail-address {
+            margin-top: 1rem;
+            font-style: italic;
+        }
+        
+        /* RSVP section */
+        .rsvp {
+            padding: 5rem 0;
+            background-color: white;
+        }
+        
+        .rsvp-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .rsvp-intro {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(212, 179, 106, 0.2);
+        }
+        
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .meal-options {
+            margin-top: 0.5rem;
+        }
+        
+        .meal-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .meal-option input {
+            width: auto;
+            margin-right: 0.5rem;
+        }
+        
+        .drinks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .drink-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .drink-option input {
+            width: auto;
+            margin-right: 0.5rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn:hover {
+            background-color: #7a2a1f;
+            transform: translateY(-2px);
+        }
+        
+        .btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .form-submit {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 0.5rem;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+            border: 1px solid #f5c6cb;
+        }
+        
+        /* Registry section */
+        .registry {
+            background-color: var(--light-color);
+            padding: 4rem 0;
+        }
+        
+        .registry-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .registry-text {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .registry-postcard {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: var(--secondary-color);
+        }
+        
+        /* Map section */
+        .map-section {
+            padding: 4rem 0;
+            background-color: white;
+        }
+        
+        .map-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .map-iframe {
+            width: 100%;
+            height: 450px;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .footer-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-text {
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+        
+        .footer-links {
+            margin-bottom: 2rem;
+        }
+        
+        .footer-link {
+            color: var(--accent-color);
+            margin: 0 1rem;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        
+        .footer-link:hover {
+            color: white;
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 2.5rem;
+            }
+            
+            .header-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .header-date {
+                font-size: 1.5rem;
+            }
+            
+            .countdown-container {
+                padding: 1.5rem;
+            }
+            
+            .countdown {
+                gap: 1rem;
+            }
+            
+            .countdown-number {
+                font-size: 2rem;
+            }
+            
+            .nav-container {
+                justify-content: space-between;
+                padding: 1rem 2rem;
+            }
+            
+            .nav-list {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--light-color);
+                padding: 1rem 0;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                gap: 0;
+            }
+            
+            .nav-list.active {
+                display: flex;
+            }
+            
+            .nav-item {
+                width: 100%;
+            }
+            
+            .nav-link {
+                display: block;
+                padding: 1rem 2rem;
+                text-align: center;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .and-symbol {
+                transform: rotate(90deg);
+                margin: 1rem 0;
+            }
+            
+            .drinks-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            :root {
+                --spacing: 1.5rem;
+            }
+            
+            .header-title {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .person-img {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .countdown {
+                gap: 0.5rem;
+            }
+            
+            .countdown-item {
+                min-width: 60px;
+            }
+            
+            .countdown-number {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="home">
+        <div class="header-content">
+            <h1 class="header-title">Константин & Олеся</h1>
+            <h2 class="header-subtitle">Присоединяйтесь к нашему свадебному торжеству</h2>
+            <div class="header-date">7 сентября 2025 · Владикавказ, Россия</div>
+            
+            <div class="countdown-container">
+                <div class="countdown-title">До свадьбы осталось</div>
+                <div class="countdown" id="countdown">
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="days">000</span>
+                        <div class="countdown-label">Дней</div>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="hours">00</span>
+                        <div class="countdown-label">Часов</div>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="minutes">00</span>
+                        <div class="countdown-label">Минут</div>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="seconds">00</span>
+                        <div class="countdown-label">Секунд</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-down">▼</div>
+    </header>
+    
+    <nav>
+        <div class="nav-container">
+            <button class="mobile-menu-btn">☰</button>
+            <ul class="nav-list">
+                <li class="nav-item"><a href="#home" class="nav-link">Главная</a></li>
+                <li class="nav-item"><a href="#couple" class="nav-link">Наша история</a></li>
+                <li class="nav-item"><a href="#details" class="nav-link">Детали</a></li>
+                <li class="nav-item"><a href="#rsvp" class="nav-link">Анкета</a></li>
+                <li class="nav-item"><a href="#registry" class="nav-link">Подарки</a></li>
+                <li class="nav-item"><a href="#map" class="nav-link">Карта</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <section id="couple" class="couple">
+        <div class="container">
+            <h2 class="section-title">Наша история</h2>
+            <div class="couple-content">
+                <div class="person">
+                    <img src="https://public.youware.com/users-website-assets/prod/f9343a2b-c4ed-4e80-b2b8-b2b256e434e7/f1cfa657129144c5a54d4ef85e1307e9.jpg" alt="Константин" class="person-img">
+                    <h3 class="person-name">Константин</h3>
+                    <p class="person-desc">Обожает итальянскую атмосферу, страстно увлекается волейболом и находит красоту в цифрах. Может часами рассказывать о математических закономерностях в окружающем мире.</p>
+                </div>
+                
+                <div class="and-symbol">&</div>
+                
+                <div class="person">
+                    <img src="https://public.youware.com/users-website-assets/prod/f9343a2b-c4ed-4e80-b2b8-b2b256e434e7/f1cfa657129144c5a54d4ef85e1307e9.jpg" alt="Олеся" class="person-img">
+                    <h3 class="person-name">Олеся</h3>
+                    <p class="person-desc">Актриса по призванию, обожает все виды веселья и, конечно же, самая красивая девушка в мире (по мнению Константина). Превращает каждый день в маленькое приключение.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="details" class="event-details">
+        <div class="container">
+            <h2 class="section-title">Детали мероприятия</h2>
+            <div class="details-container">
+                <div class="detail-card">
+                    <div class="detail-icon">🕊️</div>
+                    <h3 class="detail-title">Церемония</h3>
+                    <p class="detail-text">7 сентября 2025<br>15:00</p>
+                    <p class="detail-address">Собор Рождества Пресвятой Богородицы<br>Владикавказ, Россия</p>
+                </div>
+                
+                <div class="detail-card">
+                    <div class="detail-icon">🍷</div>
+                    <h3 class="detail-title">Основной праздник</h3>
+                    <p class="detail-text">7 сентября 2025<br>18:00</p>
+                    <p class="detail-address">Ресторан "Амран"<br>ул. Коцоева, 22<br>Владикавказ, Россия</p>
+                </div>
+                
+                <div class="detail-card">
+                    <div class="detail-icon">✨</div>
+                    <h3 class="detail-title">Афтепати</h3>
+                    <p class="detail-text">8 сентября 2025<br>12:00</p>
+                    <p class="detail-address">Гостевой дом "Горное эхо"<br>Село Фиагдон<br>РСО-Алания, Россия</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="rsvp" class="rsvp">
+        <div class="container">
+            <h2 class="section-title">Маленькая анкета</h2>
+            <div class="rsvp-container">
+                <p class="rsvp-intro">Пожалуйста, подтвердите ваше присутствие до 15 августа 2025 года</p>
+                
+                <form id="rsvp-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="guest-name">Имя</label>
+                            <input type="text" id="guest-name" name="guest-name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="guest-surname">Фамилия</label>
+                            <input type="text" id="guest-surname" name="guest-surname" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="guest-email">Email</label>
+                            <input type="email" id="guest-email" name="guest-email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="guest-phone">Телефон</label>
+                            <input type="tel" id="guest-phone" name="guest-phone">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="attending">Вы придёте?</label>
+                        <select id="attending" name="attending" required>
+                            <option value="">Выберите вариант</option>
+                            <option value="yes">Да, с удовольствием</option>
+                            <option value="no">Нет, не смогу</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Предпочтения в меню</label>
+                        <div class="meal-options">
+                            <div class="meal-option">
+                                <input type="radio" id="meal-classic" name="meal" value="classic" checked>
+                                <label for="meal-classic">Классическое меню (Мясные и рыбные блюда)</label>
+                            </div>
+                            
+                            <div class="meal-option">
+                                <input type="radio" id="meal-vegetarian" name="meal" value="vegetarian">
+                                <label for="meal-vegetarian">Вегетарианское меню</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Предпочтения в напитках (отметьте нужные)</label>
+                        <div class="drinks-grid">
+                            <div class="drink-option">
+                                <input type="checkbox" id="drink-red-wine" name="drinks" value="red-wine">
+                                <label for="drink-red-wine">Красное вино</label>
+                            </div>
+                            
+                            <div class="drink-option">
+                                <input type="checkbox" id="drink-white-wine" name="drinks" value="white-wine">
+                                <label for="drink-white-wine">Белое вино</label>
+                            </div>
+                            
+                            <div class="drink-option">
+                                <input type="checkbox" id="drink-rose-wine" name="drinks" value="rose-wine">
+                                <label for="drink-rose-wine">Розовое вино</label>
+                            </div>
+                            
+                            <div class="drink-option">
+                                <input type="checkbox" id="drink-sparkling-wine" name="drinks" value="sparkling-wine">
+                                <label for="drink-sparkling-wine">Игристое вино</label>
+                            </div>
+                            
+                            <div class="drink-option">
+                                <input type="checkbox" id="drink-whiskey" name="drinks" value="whiskey">
+                                <label for="drink-whiskey">Виски</label>
+                            </div>
+                            
+                            <div class="drink-option">
+                                <input type="checkbox" id="drink-cognac" name="drinks" value="cognac">
+                                <label for="drink-cognac">Коньяк</label>
+                            </div>
+                            
+                            <div class="drink-option">
+                                <input type="checkbox" id="drink-vodka" name="drinks" value="vodka">
+                                <label for="drink-vodka">Водка</label>
+                            </div>
+                            
+                            <div class="drink-option">
+                                <input type="checkbox" id="drink-soft-drinks" name="drinks" value="soft-drinks">
+                                <label for="drink-soft-drinks">Безалкогольные напитки</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="notes">Дополнительные пожелания или аллергии</label>
+                        <textarea id="notes" name="notes" rows="4"></textarea>
+                    </div>
+                    
+                    <div class="form-submit">
+                        <button type="submit" class="btn" id="submit-btn">Отправить</button>
+                    </div>
+                    
+                    <div id="form-message"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <section id="registry" class="registry">
+        <div class="container">
+            <h2 class="section-title">Подарки</h2>
+            <div class="registry-content">
+                <p class="registry-text">Ваше присутствие - уже самый ценный подарок для нас!</p>
+                <p class="registry-postcard">Мы не ждём подарков, но хунбао всегда приветствуется! 😊</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="map" class="map-section">
+        <div class="container">
+            <h2 class="section-title">Место проведения</h2>
+            <div class="map-container">
+                <iframe src="https://yandex.ru/map-widget/v1" class="map-iframe" allowfullscreen="true"></iframe>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <h2 class="footer-title">Константин & Олеся</h2>
+                <p class="footer-text">Спасибо, что разделите с нами этот особенный момент. Мы с нетерпением ждём возможности отпраздновать нашу любовь вместе с вами!</p>
+                
+                <div class="footer-links">
+                    <a href="#home" class="footer-link">Главная</a>
+                    <a href="#couple" class="footer-link">Наша история</a>
+                    <a href="#details" class="footer-link">Детали</a>
+                    <a href="#rsvp" class="footer-link">Анкета</a>
+                    <a href="#registry" class="footer-link">Подарки</a>
+                    <a href="#map" class="footer-link">Карта</a>
+                </div>
+                
+                <p class="copyright">© 2025 Константин & Олеся - Все права защищены</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Supabase
+        const SUPABASE_URL = 'https://phetpnhwohiroczngzsb.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBoZXRwbmh3b2hpcm9jem5nenNiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5MjA4ODMsImV4cCI6MjA2NzQ5Njg4M30.9g4_bIwciMODCVXrJT1qbB7hxqxxXc5HASraRrnnLeU';
+        
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        
+        // Wedding date countdown
+        const weddingDate = new Date('September 7, 2025 15:00:00').getTime();
+        
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+            
+            if (distance < 0) {
+                document.getElementById('countdown').innerHTML = '<div class="countdown-item"><span class="countdown-number">🎉</span><div class="countdown-label">Поженились!</div></div>';
+                return;
+            }
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = days.toString().padStart(3, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+        
+        // Update countdown every second
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+        
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navList = document.querySelector('.nav-list');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navList.classList.toggle('active');
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                navList.classList.remove('active');
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 70,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // RSVP form submission with Supabase
+        const rsvpForm = document.getElementById('rsvp-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const formMessage = document.getElementById('form-message');
+        
+        rsvpForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="loading"></span>Отправка...';
+            formMessage.innerHTML = '';
+            
+            try {
+                const formData = new FormData(rsvpForm);
+                const guestName = formData.get('guest-name');
+                const guestSurname = formData.get('guest-surname');
+                
+                // Collect selected drinks
+                const selectedDrinks = [];
+                document.querySelectorAll('input[name="drinks"]:checked').forEach(checkbox => {
+                    selectedDrinks.push(checkbox.value);
+                });
+                
+                // Insert data into Supabase
+                const { data, error } = await supabase
+                    .from('rsvp')
+                    .insert([
+                        {
+                            name: formData.get('guest-name'),
+                            surname: formData.get('guest-surname'),
+                            email: formData.get('guest-email'),
+                            phone: formData.get('guest-phone'),
+                            attending: formData.get('attending'),
+                            meal: formData.get('meal'),
+                            drinks: selectedDrinks,
+                            notes: formData.get('notes')
+                        }
+                    ]);
+                
+                if (error) {
+                    throw error;
+                }
+                
+                // Show success message
+                formMessage.innerHTML = `
+                    <div class="success-message">
+                        <h3>Спасибо, ${guestName} ${guestSurname}!</h3>
+                        <p>Мы получили ваше подтверждение. Ждём вас с нетерпением!</p>
+                        <p style="margin-top: 1rem; font-style: italic;">На ваш email будет отправлено подтверждение.</p>
+                    </div>
+                `;
+                
+                // Reset form
+                rsvpForm.reset();
+                
+            } catch (error) {
+                console.error('Error submitting RSVP:', error);
+                
+                // Show error message
+                formMessage.innerHTML = `
+                    <div class="error-message">
+                        <h3>Упс! Что-то пошло не так.</h3>
+                        <p>Произошла ошибка при отправке формы. Пожалуйста, попробуйте ещё раз или свяжитесь с нами напрямую.</p>
+                        <p style="margin-top: 1rem;"><strong>Ошибка:</strong> ${error.message}</p>
+                    </div>
+                `;
+            } finally {
+                // Reset button state
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Отправить';
+            }
+        });
+    </script>
+</body>
+</html>
