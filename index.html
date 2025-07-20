@@ -39,7 +39,7 @@
         /* Header styles */
         header {
             height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://public.youware.com/users-website-assets/prod/f9343a2b-c4ed-4e80-b2b8-b2b256e434e7/34a68c9967f44ed08e4ebddaeaf9251f') center/cover;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('images/00032_resized.jpg') center/cover;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -592,6 +592,158 @@
             font-size: 0.9rem;
             opacity: 0.7;
         }
+
+        /* Dresscode section */
+                .dresscode {
+            padding: 4rem 0;
+            background-color: white;
+        }
+
+        .dresscode-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .dresscode-colors {
+            flex: 1;
+            min-width: 300px;
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px; /* Increased from 10px */
+            position: relative;
+        }
+
+        .color-circle {
+            width: 70px; /* Slightly smaller */
+            height: 70px;
+            border-radius: 50%;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.5s ease-out;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 1;
+            margin: 0 -10px; /* Reduced overlap from -15px */
+        }
+
+/* Keep the rest of your color circle styles the same */
+
+        .color-circle:nth-child(1) {
+            background-color: rgba(255, 168, 139, 0.85);
+            transition-delay: 0.1s;
+        }
+
+        .color-circle:nth-child(2) {
+            background-color: rgba(119, 6, 6, 0.85);
+            transition-delay: 0.2s;
+        }
+
+        .color-circle:nth-child(3) {
+            background-color: rgba(221, 160, 221, 0.9);
+            transition-delay: 0.3s;
+        }
+
+        .color-circle:nth-child(4) {
+            background-color: rgba(173, 216, 230, 0.95);
+            transition-delay: 0.4s;
+        }
+
+        .color-circle:nth-child(5) {
+            background-color: rgba(164, 191, 91, 0.9);
+            transition-delay: 0.5s;
+        }
+
+        .dresscode-carousel {
+            flex: 1;
+            min-width: 300px;
+            height: 300px;
+            overflow: hidden;
+            position: relative;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .carousel-track {
+            display: flex;
+            height: 100%;
+            animation: carousel-scroll 30s linear infinite;
+        }
+
+        .carousel-track:hover {
+            animation-play-state: paused;
+        }
+
+        .carousel-image {
+            min-width: 300px;
+            height: 100%;
+            object-fit: cover;
+            padding: 0 5px;
+        }
+
+        @keyframes carousel-scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(-300px * 5));
+            }
+        }
+
+        /* Animation trigger */
+        .dresscode-colors.animate .color-circle {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Add these new keyframes */
+        @keyframes circlePulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.9;
+            }
+        }
+
+        /* Update the color-circle animation */
+        .color-circle {
+            /* ... existing styles ... */
+            animation: circlePulse 3s infinite ease-in-out;
+            animation-play-state: paused;
+        }
+
+        .dresscode-colors.animate .color-circle {
+            opacity: 1;
+            transform: scale(1);
+            animation-play-state: running;
+        }
+
+        /* Add transition delays for each circle */
+        .dresscode-colors.animate .color-circle:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+        .dresscode-colors.animate .color-circle:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+        .dresscode-colors.animate .color-circle:nth-child(3) {
+            animation-delay: 0.5s;
+        }
+        .dresscode-colors.animate .color-circle:nth-child(4) {
+            animation-delay: 0.7s;
+        }
+        .dresscode-colors.animate .color-circle:nth-child(5) {
+            animation-delay: 0.9s;
+        }
         
         /* Responsive */
         @media (max-width: 768px) {
@@ -657,12 +809,27 @@
             }
             
             .and-symbol {
-                transform: rotate(90deg);
                 margin: 1rem 0;
             }
             
             .drinks-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .dresscode-container {
+                flex-direction: column;
+            }
+            
+            .dresscode-colors {
+                height: 100px;
+                margin-bottom: 2rem;
+                gap: 20px; /* Slightly less gap on mobile */
+            }
+            
+            .color-circle {
+                width: 50px; /* Smaller on mobile */
+                height: 50px;
+                margin: 0 -8px; /* Less overlap on mobile */
             }
         }
         
@@ -739,7 +906,7 @@
                 <li class="nav-item"><a href="#details" class="nav-link">Детали</a></li>
                 <li class="nav-item"><a href="#rsvp" class="nav-link">Анкета</a></li>
                 <li class="nav-item"><a href="#registry" class="nav-link">Подарки</a></li>
-                <li class="nav-item"><a href="#map" class="nav-link">Карта</a></li>
+                <li class="nav-item"><a href="#dresscode" class="nav-link">Дресс-код</a></li>
             </ul>
         </div>
     </nav>
@@ -749,7 +916,7 @@
             <h2 class="section-title">Наша история</h2>
             <div class="couple-content">
                 <div class="person">
-                    <img src="https://public.youware.com/users-website-assets/prod/f9343a2b-c4ed-4e80-b2b8-b2b256e434e7/f1cfa657129144c5a54d4ef85e1307e9.jpg" alt="Константин" class="person-img">
+                    <img src="images/00076_resized.jpg" alt="Константин" class="person-img">
                     <h3 class="person-name">Константин</h3>
                     <p class="person-desc">Обожает итальянскую атмосферу, страстно увлекается волейболом и находит красоту в цифрах. Может часами рассказывать о математических закономерностях в окружающем мире.</p>
                 </div>
@@ -757,7 +924,7 @@
                 <div class="and-symbol">&</div>
                 
                 <div class="person">
-                    <img src="https://public.youware.com/users-website-assets/prod/f9343a2b-c4ed-4e80-b2b8-b2b256e434e7/f1cfa657129144c5a54d4ef85e1307e9.jpg" alt="Олеся" class="person-img">
+                    <img src="images/00164_resized.jpg" alt="Олеся" class="person-img">
                     <h3 class="person-name">Олеся</h3>
                     <p class="person-desc">Актриса по призванию, обожает все виды веселья и, конечно же, самая красивая девушка в мире (по мнению Константина). Превращает каждый день в маленькое приключение.</p>
                 </div>
@@ -770,24 +937,24 @@
             <h2 class="section-title">Детали мероприятия</h2>
             <div class="details-container">
                 <div class="detail-card">
+                    <div class="detail-icon">🏠</div>
+                    <h3 class="detail-title">Заселение</h3>
+                    <p class="detail-text">6 сентября 2025<br>14:00</p>
+                    <p class="detail-address">Садовое товарищество Учитель, Театральная ул.<br>Владикавказ, Россия</p>
+                </div>
+                
+                <div class="detail-card">
                     <div class="detail-icon">🕊️</div>
                     <h3 class="detail-title">Церемония</h3>
-                    <p class="detail-text">7 сентября 2025<br>15:00</p>
-                    <p class="detail-address">Собор Рождества Пресвятой Богородицы<br>Владикавказ, Россия</p>
+                    <p class="detail-text">7 сентября 2025<br>17:00</p>
+                    <p class="detail-address">Ресторан "Villaggio"<br>Село Балта<br>Владикавказ, Россия</p>
                 </div>
                 
                 <div class="detail-card">
-                    <div class="detail-icon">🍷</div>
-                    <h3 class="detail-title">Основной праздник</h3>
-                    <p class="detail-text">7 сентября 2025<br>18:00</p>
-                    <p class="detail-address">Ресторан "Амран"<br>ул. Коцоева, 22<br>Владикавказ, Россия</p>
-                </div>
-                
-                <div class="detail-card">
-                    <div class="detail-icon">✨</div>
+                    <div class="detail-icon">🌄</div>
                     <h3 class="detail-title">Афтепати</h3>
-                    <p class="detail-text">8 сентября 2025<br>12:00</p>
-                    <p class="detail-address">Гостевой дом "Горное эхо"<br>Село Фиагдон<br>РСО-Алания, Россия</p>
+                    <p class="detail-text">8 сентября 2025<br>17:00</p>
+                    <p class="detail-address">Гостевой дом "Chill Village"<br>Село Фиагдон<br>РСО-Алания, Россия</p>
                 </div>
             </div>
         </div>
@@ -797,7 +964,7 @@
         <div class="container">
             <h2 class="section-title">Маленькая анкета</h2>
             <div class="rsvp-container">
-                <p class="rsvp-intro">Пожалуйста, подтвердите ваше присутствие до 15 августа 2025 года</p>
+                <p class="rsvp-intro">Пожалуйста, подтвердите ваше присутствие до 10 августа 2025 года</p>
                 
                 <form id="rsvp-form">
                     <div class="form-row">
@@ -814,8 +981,8 @@
                     
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="guest-email">Email</label>
-                            <input type="email" id="guest-email" name="guest-email" required>
+                            <label for="guest-email">TG/WA</label>
+                            <input type="text" id="guest-email" name="guest-email" required>
                         </div>
                         
                         <div class="form-group">
@@ -829,7 +996,7 @@
                         <select id="attending" name="attending" required>
                             <option value="">Выберите вариант</option>
                             <option value="yes">Да, с удовольствием</option>
-                            <option value="no">Нет, не смогу</option>
+                            <option value="no">Нет, не смогу (перевод по номеру +79511111160)</option>
                         </select>
                     </div>
                     
@@ -913,11 +1080,11 @@
             <h2 class="section-title">Подарки</h2>
             <div class="registry-content">
                 <p class="registry-text">Ваше присутствие - уже самый ценный подарок для нас!</p>
-                <p class="registry-postcard">Мы не ждём подарков, но хунбао всегда приветствуется! 😊</p>
+                <p class="registry-postcard">Мы не ожидаем каких-то подарков, но простой конверт всегда приветствуется! 😊</p>
             </div>
         </div>
     </section>
-    
+<!--    
     <section id="map" class="map-section">
         <div class="container">
             <h2 class="section-title">Место проведения</h2>
@@ -926,12 +1093,43 @@
             </div>
         </div>
     </section>
-    
+-->
+    <section id="dresscode" class="dresscode">
+        <div class="container">
+            <h2 class="section-title">Дресс-код</h2>
+            <div class="dresscode-container">
+                <div class="dresscode-colors" id="colors-section">
+                    <div class="color-circle"></div>
+                    <div class="color-circle"></div>
+                    <div class="color-circle"></div>
+                    <div class="color-circle"></div>
+                    <div class="color-circle"></div>
+                </div>
+                
+                <div class="dresscode-carousel">
+                    <div class="carousel-track">
+                        <img src="images/dress1.jpg" alt="Dresscode example 1" class="carousel-image">
+                        <img src="images/dress4.jpg" alt="Dresscode example 2" class="carousel-image">
+                        <img src="images/dress3.jpg" alt="Dresscode example 3" class="carousel-image">
+                        <img src="images/dress5.jpg" alt="Dresscode example 4" class="carousel-image">
+                        <img src="images/dress2.jpg" alt="Dresscode example 5" class="carousel-image">
+                        <!-- Duplicate images for seamless looping -->
+                        <img src="images/dress1.jpg" alt="Dresscode example 1" class="carousel-image">
+                        <img src="images/dress4.jpg" alt="Dresscode example 2" class="carousel-image">
+                        <img src="images/dress3.jpg" alt="Dresscode example 3" class="carousel-image">
+                        <img src="images/dress5.jpg" alt="Dresscode example 4" class="carousel-image">
+                        <img src="images/dress2.jpg" alt="Dresscode example 5" class="carousel-image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer>
         <div class="container">
             <div class="footer-content">
                 <h2 class="footer-title">Константин & Олеся</h2>
-                <p class="footer-text">Спасибо, что разделите с нами этот особенный момент. Мы с нетерпением ждём возможности отпраздновать нашу любовь вместе с вами!</p>
+                <p class="footer-text">Спасибо, что разделите с нами этот особенный момент. Мы с нетерпением ждём возможности отпраздновать нашу свадьбу вместе с вами! Æгас нæм цу!</p>
                 
                 <div class="footer-links">
                     <a href="#home" class="footer-link">Главная</a>
@@ -939,10 +1137,10 @@
                     <a href="#details" class="footer-link">Детали</a>
                     <a href="#rsvp" class="footer-link">Анкета</a>
                     <a href="#registry" class="footer-link">Подарки</a>
-                    <a href="#map" class="footer-link">Карта</a>
+                    <a href="#dresscode" class="footer-link">Дресс-код</a>
                 </div>
                 
-                <p class="copyright">© 2025 Константин & Олеся - Все права защищены</p>
+                <p class="copyright">© 2025 Константин & Олеся</p>
             </div>
         </div>
     </footer>
@@ -955,7 +1153,7 @@
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         
         // Wedding date countdown
-        const weddingDate = new Date('September 7, 2025 15:00:00').getTime();
+        const weddingDate = new Date('September 7, 2025 17:00:00').getTime();
         
         function updateCountdown() {
             const now = new Date().getTime();
@@ -1079,6 +1277,92 @@
                 submitBtn.innerHTML = 'Отправить';
             }
         });
+
+        // Dresscode animation trigger with re-appearing effect
+        const colorsSection = document.getElementById('colors-section');
+        const colorCircles = document.querySelectorAll('.color-circle');
+
+        function checkVisibility() {
+            const sectionPosition = colorsSection.getBoundingClientRect();
+            const screenHeight = window.innerHeight;
+            
+            // If section is in viewport
+            if (sectionPosition.top < screenHeight && sectionPosition.bottom > 0) {
+                colorsSection.classList.add('animate');
+            } else {
+                colorsSection.classList.remove('animate');
+            }
+        }
+
+        // Run on scroll and initial load
+        window.addEventListener('scroll', checkVisibility);
+        window.addEventListener('load', checkVisibility);
+
+        // Reset animation when circles leave viewport
+        let isAnimating = false;
+
+        function handleScroll() {
+            const sectionTop = colorsSection.getBoundingClientRect().top;
+            const sectionBottom = colorsSection.getBoundingClientRect().bottom;
+            const screenHeight = window.innerHeight;
+            
+            if ((sectionTop < screenHeight && sectionBottom > 0) && !isAnimating) {
+                isAnimating = true;
+                colorsSection.classList.add('animate');
+                
+                // Reset animation after it completes
+                setTimeout(() => {
+                    colorsSection.classList.remove('animate');
+                    setTimeout(() => {
+                        isAnimating = false;
+                    }, 100);
+                }, 5000); // Match this with your animation duration
+            }
+        }
+
+        // More sensitive scroll listener
+        window.addEventListener('scroll', handleScroll, { passive: true });
+
+        // More reliable Intersection Observer method
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                } else {
+                    entry.target.classList.remove('animate');
+                    // Reset animation state when leaving viewport
+                    setTimeout(() => {
+                        if (!entry.isIntersecting) {
+                            entry.target.classList.remove('animate');
+                        }
+                    }, 500);
+                }
+            });
+        }, observerOptions);
+
+        observer.observe(colorsSection);
+
+        // Continuous animation trigger
+        let animationCycle = true;
+
+        function toggleAnimation() {
+            if (animationCycle) {
+                colorsSection.classList.remove('animate');
+                setTimeout(() => {
+                    colorsSection.classList.add('animate');
+                }, 300);
+            }
+            animationCycle = !animationCycle;
+        }
+
+        // Optional: Uncomment for automatic re-animation
+        // setInterval(toggleAnimation, 5000);
     </script>
 </body>
 </html>
