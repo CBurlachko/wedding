@@ -676,6 +676,21 @@
             background-color: rgba(164, 191, 91, 0.9);
             transition-delay: 0.5s;
         }
+        
+        .color-circle:nth-child(1)[data-circle-type="suit"] {
+            background-color: rgba(173, 216, 230, 0.95);
+            transition-delay: 0.1s;
+        }
+        
+        .color-circle:nth-child(2)[data-circle-type="suit"] {
+            background-color: rgba(1, 9, 12, 0.95);
+            transition-delay: 0.1s;
+        }
+
+        .color-circle:nth-child(3)[data-circle-type="suit"] {
+            background-color: rgba(223, 230, 232, 0.95);
+            transition-delay: 0.1s;
+        }
 
         .dresscode-carousel {
             flex: 1;
@@ -734,7 +749,7 @@
         /* Update the color-circle animation */
         .color-circle {
             /* ... existing styles ... */
-            animation: circlePulse 3s infinite ease-in-out;
+            animation: circlePulse 2s infinite ease-in-out;
             animation-play-state: paused;
         }
 
@@ -758,6 +773,15 @@
             animation-delay: 0.7s;
         }
         .dresscode-colors.animate .color-circle:nth-child(5) {
+            animation-delay: 0.9s;
+        }
+        .dresscode-colors.animate .color-circle[data-circle-type="suit"]:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+        .dresscode-colors.animate .color-circle[data-circle-type="suit"]:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+        .dresscode-colors.animate .color-circle[data-circle-type="suit"]:nth-child(3) {
             animation-delay: 0.9s;
         }
         
@@ -1121,13 +1145,19 @@
             <h2 class="section-title">Дресс-код</h2>
             <div class="dresscode-container">
                 <div class="dresscode-colors-wrapper">
-                    <div class="dresscode-header">Дресскод для платьев</div>
+                    <div class="dresscode-header">Дресскод для женщин</div>
                     <div class="dresscode-colors" id="colors-section">
                         <div class="color-circle"></div>
                         <div class="color-circle"></div>
                         <div class="color-circle"></div>
                         <div class="color-circle"></div>
                         <div class="color-circle"></div>
+                    </div>
+                    <div class="dresscode-header">Дресскод для мужчин</div>
+                    <div class="dresscode-colors" id="colors-section1">
+                        <div class="color-circle" data-circle-type="suit"></div>
+                        <div class="color-circle" data-circle-type="suit"></div>
+                        <div class="color-circle" data-circle-type="suit"></div>
                     </div>
                 </div>
                 
@@ -1306,6 +1336,7 @@
 
         // Dresscode animation trigger with re-appearing effect
         const colorsSection = document.getElementById('colors-section');
+        const colorsSection1 = document.getElementById('colors-section1');
         const colorCircles = document.querySelectorAll('.color-circle');
 
         function checkVisibility() {
@@ -1315,8 +1346,10 @@
             // If section is in viewport
             if (sectionPosition.top < screenHeight && sectionPosition.bottom > 0) {
                 colorsSection.classList.add('animate');
+                colorsSection1.classList.add('animate');
             } else {
                 colorsSection.classList.remove('animate');
+                colorsSection1.classList.remove('animate');
             }
         }
 
@@ -1335,14 +1368,21 @@
             if ((sectionTop < screenHeight && sectionBottom > 0) && !isAnimating) {
                 isAnimating = true;
                 colorsSection.classList.add('animate');
-                
+                /*
                 // Reset animation after it completes
                 setTimeout(() => {
                     colorsSection.classList.remove('animate');
                     setTimeout(() => {
                         isAnimating = false;
                     }, 100);
-                }, 5000); // Match this with your animation duration
+                }, 5000);
+                setTimeout(() => {
+                    colorsSection1.classList.remove('animate');
+                    setTimeout(() => {
+                        isAnimating = false;
+                    }, 100);
+                }, 5000);  // Match this with your animation duration
+                */
             }
         }
 
