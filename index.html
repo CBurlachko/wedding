@@ -609,6 +609,15 @@
             margin: 0 auto;
         }
 
+        .dresscode-colors-wrapper {
+            flex: 1;
+            min-width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
         .dresscode-colors {
             flex: 1;
             min-width: 100%;
@@ -618,6 +627,16 @@
             align-items: center;
             position: relative;
             margin-bottom: 1rem;
+        }
+
+        .dresscode-header {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .color-circle {
@@ -817,6 +836,11 @@
                 min-width: 300px;
                 height: 120px;
                 margin-bottom: 0;
+            }
+
+            .dresscode-header {
+                font-size: 1rem;
+                margin-bottom: 1rem;
             }
             
             .color-circle {
@@ -1096,12 +1120,15 @@
         <div class="container">
             <h2 class="section-title">Дресс-код</h2>
             <div class="dresscode-container">
-                <div class="dresscode-colors" id="colors-section">
-                    <div class="color-circle"></div>
-                    <div class="color-circle"></div>
-                    <div class="color-circle"></div>
-                    <div class="color-circle"></div>
-                    <div class="color-circle"></div>
+                <div class="dresscode-colors-wrapper">
+                    <div class="dresscode-header">Дресскод для платьев</div>
+                    <div class="dresscode-colors" id="colors-section">
+                        <div class="color-circle"></div>
+                        <div class="color-circle"></div>
+                        <div class="color-circle"></div>
+                        <div class="color-circle"></div>
+                        <div class="color-circle"></div>
+                    </div>
                 </div>
                 
                 <div class="dresscode-carousel">
@@ -1127,7 +1154,8 @@
         <div class="container">
             <div class="footer-content">
                 <h2 class="footer-title">Константин & Олеся</h2>
-                <p class="footer-text">Спасибо, что разделите с нами этот особенный момент. Мы с нетерпением ждём возможности отпраздновать нашу свадьбу вместе с вами! Æгас нæм цу!</p>
+                <p class="footer-text">Спасибо, что разделите с нами этот особенный момент. Мы с нетерпением ждём возможности отпраздновать нашу свадьбу вместе с вами!</p>
+                <p class="footer-text">Æгас нæм цу!</p>
                 
                 <div class="footer-links">
                     <a href="#home" class="footer-link">Главная</a>
